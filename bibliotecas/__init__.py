@@ -24,6 +24,8 @@ class BotInstagram:
         navegador = self.driver
         navegador.get('https://www.instagram.com')
         sleep(3)
+        navegador.maximize_window()
+        sleep(2)
         campo_usuario = navegador.find_element_by_xpath('//input[@name="username"]')
         campo_usuario.click()
         campo_usuario.clear()
@@ -34,7 +36,10 @@ class BotInstagram:
         campo_senha.clear()
         campo_senha.send_keys(self.senha)
         campo_senha.send_keys(Keys.RETURN)
-        sleep(3)
+        sleep(5)
+        agora_nao = navegador.find_element_by_xpath('//button[@class="aOOlW   HoLwm "]')
+        agora_nao.click()
+        sleep(1)
         self.pesquisar(hashtag)
 
     def pesquisar(self, hashtag):
@@ -77,12 +82,9 @@ class BotInstagram:
                 sleep(2)
                 campo_mensagem.send_keys(Keys.RETURN)
                 sleep(2)
-                voltar_perfil = navegador.find_element_by_xpath(
-                    '//div[@class="_7UhW9    vy6Bb      qyrsm KV-D4              fDxYl     "]')
-                voltar_perfil.click()
+                navegador.back()
                 sleep(2)
-                parar_seguir = navegador.find_element_by_xpath(
-                    '//button[@class="_5f5mN    -fzfL     _6VtSN     yZn4P   "]')
+                parar_seguir = navegador.find_element_by_xpath('//button[@class="_5f5mN    -fzfL     _6VtSN     yZn4P   "]')
                 parar_seguir.click()
                 sleep(2)
                 unfollow = navegador.find_element_by_xpath('//button[@class="aOOlW -Cab_   "]')
@@ -91,6 +93,5 @@ class BotInstagram:
                 contador += 1
                 if contador > 10:
                     navegador.quit()
-                    break
             else:
                 continue
