@@ -34,9 +34,7 @@ class BotInstagram:
         campo_senha.clear()
         campo_senha.send_keys(self.senha)
         campo_senha.send_keys(Keys.RETURN)
-        sleep(6)
-        botao_agora_nao = navegador.find_element_by_xpath('//button[@class="aOOlW   HoLwm "]')
-        botao_agora_nao.click()
+        sleep(3)
         self.pesquisar(hashtag)
 
     def pesquisar(self, hashtag):
