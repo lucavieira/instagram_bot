@@ -14,7 +14,7 @@ mensagem = 'Olá, tudo bem? Me chamo Lucas e estou começando a divulgar meu tra
            ' faremos o orçamento. Obrigado pela atenção!'
 
 
-class Bot_instagram:
+class BotInstagram:
     def __init__(self, usuario, senha):
         self.usuario = usuario
         self.senha = senha
@@ -59,37 +59,40 @@ class Bot_instagram:
             navegador.get(pic_href)
             perfil = navegador.find_element_by_xpath('//div[@class="e1e1d"]')
             perfil.click()
-            sleep(5)
-            nome_perfil = navegador.find_element_by_xpath('//h2[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]')
+            sleep(10)
+            nome_perfil = navegador.find_element_by_xpath('//h2[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]').text
             if nome_perfil not in perfis:
                 perfis.append(nome_perfil)
                 print(perfis)
+                sleep(2)
+                botao_seguir = navegador.find_element_by_xpath(
+                    '//button[@class="_5f5mN       jIbKX  _6VtSN     yZn4P   "]')
+                botao_seguir.click()
+                sleep(3)
+                enviar_mensagem = navegador.find_element_by_xpath('//button[@class="sqdOP  L3NKy _4pI4F   _8A5w5    "]')
+                enviar_mensagem.click()
+                sleep(5)
+                campo_mensagem = navegador.find_element_by_tag_name('textarea')
+                campo_mensagem.click()
+                sleep(2)
+                campo_mensagem.send_keys(mensagem)
+                sleep(2)
+                campo_mensagem.send_keys(Keys.RETURN)
+                sleep(2)
+                voltar_perfil = navegador.find_element_by_xpath(
+                    '//div[@class="_7UhW9    vy6Bb      qyrsm KV-D4              fDxYl     "]')
+                voltar_perfil.click()
+                sleep(2)
+                parar_seguir = navegador.find_element_by_xpath(
+                    '//button[@class="_5f5mN    -fzfL     _6VtSN     yZn4P   "]')
+                parar_seguir.click()
+                sleep(2)
+                unfollow = navegador.find_element_by_xpath('//button[@class="aOOlW -Cab_   "]')
+                unfollow.click()
+                sleep(1)
+                contador += 1
+                if contador > 10:
+                    navegador.quit()
+                    break
             else:
                 continue
-            sleep(5)
-            botao_seguir = navegador.find_element_by_xpath('//button[@class="_5f5mN       jIbKX  _6VtSN     yZn4P   "]')
-            botao_seguir.click()
-            sleep(5)
-            enviar_mensagem = navegador.find_element_by_xpath('//button[@class="sqdOP  L3NKy _4pI4F   _8A5w5    "]')
-            enviar_mensagem.click()
-            sleep(5)
-            campo_mensagem = navegador.find_element_by_tag_name('textarea')
-            campo_mensagem.click()
-            sleep(2)
-            campo_mensagem.send_keys(mensagem)
-            sleep(2)
-            campo_mensagem.send_keys(Keys.RETURN)
-            sleep(2)
-            voltar_perfil = navegador.find_element_by_xpath('//div[@class="_7UhW9    vy6Bb      qyrsm KV-D4              fDxYl     "]')
-            voltar_perfil.click()
-            sleep(2)
-            parar_seguir = navegador.find_element_by_xpath('//button[@class="_5f5mN    -fzfL     _6VtSN     yZn4P   "]')
-            parar_seguir.click()
-            sleep(2)
-            unfollow = navegador.find_element_by_xpath('//button[@class="aOOlW -Cab_   "]')
-            unfollow.click()
-            sleep(3)
-            contador += 1
-            if contador > 10:
-                navegador.quit()
-                break
