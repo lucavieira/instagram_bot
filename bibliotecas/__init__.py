@@ -62,8 +62,11 @@ class BotInstagram:
             navegador.get(pic_href)
             perfil = navegador.find_element_by_xpath('//div[@class="e1e1d"]')
             perfil.click()
-            sleep(10)
-            nome_perfil = navegador.find_element_by_xpath('//h2[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]').text
+            sleep(8)
+            try:
+                nome_perfil = navegador.find_element_by_xpath('//h2[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]').text
+            except:
+                nome_perfil = navegador.find_element_by_xpath('//h1[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]').text
             if nome_perfil not in perfis:
                 perfis.append(nome_perfil)
                 print(perfis)
@@ -93,5 +96,6 @@ class BotInstagram:
                 contador += 1
                 if contador > 10:
                     navegador.quit()
+                    break
             else:
                 continue
