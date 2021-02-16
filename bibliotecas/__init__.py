@@ -2,9 +2,15 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from datetime import date
+from arquivo import *
 
 dias = ['hamburguer', 'pizza', 'tatuagem', 'informatica', 'loja']
 hashtag = dias[date.today().weekday()]
+
+arquivo = 'lista_perfis.txt'
+
+if not existe_arquivo(arquivo):
+    criar_arquivo(arquivo)
 
 mensagem = 'Olá, tudo bem? Me chamo Lucas e estou começando a divulgar meu trabalho como desenvolvedor web.' \
            ' Por enquanto não possuo nenhum trabalho publicado na internet, pois hospedo no meu próprio computador.' \
@@ -53,9 +59,7 @@ class BotInstagram:
         hrefs = navegador.find_elements_by_tag_name('a')
         pic_hrefs = [elem.get_attribute('href') for elem in hrefs]
         [href for href in pic_hrefs if hashtag in href]
-        print(hashtag + ' fotos ' + str(len(pic_hrefs)))
         contador = 1
-        perfis = []
 
         for pic_href in pic_hrefs:
             sleep(2)
@@ -67,12 +71,11 @@ class BotInstagram:
                 nome_perfil = navegador.find_element_by_xpath('//h2[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]').text
             except:
                 nome_perfil = navegador.find_element_by_xpath('//h1[@class="_7UhW9       fKFbl yUEEX   KV-D4              fDxYl     "]').text
-            if nome_perfil not in perfis:
-                perfis.append(nome_perfil)
-                print(perfis)
-                sleep(2)
-                botao_seguir = navegador.find_element_by_xpath(
-                    '//button[@class="_5f5mN       jIbKX  _6VtSN     yZn4P   "]')
+            condicao = ler_arquivo(arquivo, nome_perfil)
+            if condicao:
+                cadastrar_perfil(arquivo, nome_perfil)
+                sleep(5)
+                botao_seguir = navegador.find_element_by_xpath('//button[@class="_5f5mN       jIbKX  _6VtSN     yZn4P   "]')
                 botao_seguir.click()
                 sleep(3)
                 enviar_mensagem = navegador.find_element_by_xpath('//button[@class="sqdOP  L3NKy _4pI4F   _8A5w5    "]')
@@ -81,7 +84,7 @@ class BotInstagram:
                 campo_mensagem = navegador.find_element_by_tag_name('textarea')
                 campo_mensagem.click()
                 sleep(2)
-                campo_mensagem.send_keys(mensagem)
+                campo_mensagem.send_keys()
                 sleep(2)
                 campo_mensagem.send_keys(Keys.RETURN)
                 sleep(2)
