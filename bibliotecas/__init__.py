@@ -84,7 +84,7 @@ class BotInstagram:
                 campo_mensagem = navegador.find_element_by_tag_name('textarea')
                 campo_mensagem.click()
                 sleep(2)
-                campo_mensagem.send_keys()
+                campo_mensagem.send_keys(mensagem)
                 sleep(2)
                 campo_mensagem.send_keys(Keys.RETURN)
                 sleep(2)
