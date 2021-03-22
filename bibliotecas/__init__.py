@@ -1,23 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
-from datetime import date
 from arquivo import *
-
-dias = ['hamburguer', 'pizza', 'tatuagem', 'informatica', 'loja']
-hashtag = dias[date.today().weekday()]
 
 arquivo = 'lista_perfis.txt'
 
 if not existe_arquivo(arquivo):
     criar_arquivo(arquivo)
-
-mensagem = 'Olá, tudo bem? Me chamo Lucas e estou começando a divulgar meu trabalho como desenvolvedor web.' \
-           ' Por enquanto não possuo nenhum trabalho publicado na internet, pois hospedo no meu próprio computador.' \
-           ' Neste meu perfil do Instagram irei publicar alguns sites que eu desenvolvi. Se você visitar meu perfil' \
-           ' e sentir um interesse, ou conhecer alguém que esteja precisando desse serviço, basta somente entrar em' \
-           ' contato comigo pelo direct! Lá conversaremos sobre os detalhes acerca do desenvolvimento, e' \
-           ' faremos o orçamento. Obrigado pela atenção!'
 
 
 class BotInstagram:
@@ -26,7 +15,7 @@ class BotInstagram:
         self.senha = senha
         self.driver = webdriver.Chrome(executable_path=r"C:\Users\User\Documents\chrome_driver\chromedriver.exe")
 
-    def login(self):
+    def login(self, hashtag, mensagem):
         navegador = self.driver
         navegador.get('https://www.instagram.com')
         sleep(3)
@@ -46,9 +35,9 @@ class BotInstagram:
         agora_nao = navegador.find_element_by_xpath('//button[@class="aOOlW   HoLwm "]')
         agora_nao.click()
         sleep(1)
-        self.pesquisar(hashtag)
+        self.pesquisar(hashtag, mensagem)
 
-    def pesquisar(self, hashtag):
+    def pesquisar(self, hashtag, mensagem):
         navegador = self.driver
         navegador.get('https://www.instagram.com/explore/tags/' + hashtag + '/')
         sleep(3)
