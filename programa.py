@@ -4,7 +4,6 @@ from tkinter import *
 
 class InterfaceGrafica:
     def __init__(self, master=None):
-        image_button = PhotoImage(file='c:/Users/User/Pictures/Image_Projects/Instagram_Bot/send-button.png')
 
         self.fontePadrao = ('Arial', '10')
 
