@@ -8,3 +8,4 @@ gui_tattoo
 mendesjp
 there.cristina
 jf_tattoostudio
+david_pher
